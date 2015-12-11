@@ -3,6 +3,7 @@ namespace Application\Mvc\Controller;
 
 use Zend\Mvc\Controller\AbstractRestfulController as ZendAbstractRestfulController;
 use Zend\Mvc\MvcEvent;
+use Zend\Json\Json;
 use Zend\View\Model\JsonModel;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Db\ResultSet\AbstractResultSet;
@@ -16,12 +17,12 @@ class AbstractRestfulController extends ZendAbstractRestfulController {
 	public function onDispatch(MvcEvent $e) {
 		try {			
 			$return = parent::onDispatch($e);
-		} catch(\Exception $e) {
-			$previous = $e->getPrevious();
+		} catch(\Exception $ex) {
+			$previous = $ex->getPrevious();
 			if($previous) {
-				$e = $previous;
+				$ex = $previous;
 			}
-			return $this->responseError(500, $e->getMessage());
+			return $this->responseError(500, $ex->getMessage());
 		}
 		
 		if(is_array($return) || $return instanceof \Iterator || $return instanceof \ArrayObject) {
@@ -30,10 +31,7 @@ class AbstractRestfulController extends ZendAbstractRestfulController {
 			$e->setResult($return);
 		} else if(!($return instanceof JsonModel) && !($return instanceof Response)) {
 			// unrecognized return type, return output as is
-			$r = $this->getResponse();
-			$r->setStatusCode(200);
-			$r->setContent($return);
-			$return = $r;
+			return $this->responseError(500,  'Unknown return format');
 		}
 		
 		return $return;
@@ -49,6 +47,10 @@ class AbstractRestfulController extends ZendAbstractRestfulController {
 		$response = $this->getResponse();
 		$response->setStatusCode($code);
 		if(!empty($msg)) {
+			$msg = Json::encode(array(
+				'message' => $msg
+			));
+			
 			$response->setContent($msg);
 		}
 		return $response;

@@ -4,7 +4,7 @@ namespace Application\Controller\Rest\Users;
 use Application\Mvc\Controller\AbstractRestfulController;
 use Application\TableGateway\Shifts;
 
-class ShiftsController extends AbstractRestfulController {
+class ShiftMembersController extends AbstractRestfulController {
 	public function getList() {
 		$shifts_gateway = Shifts::factory($this->getServiceLocator());
 		
