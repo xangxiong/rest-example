@@ -1,0 +1,14 @@
+{
+	"name": "xangxiong/rest-example",
+	"description": "Rest example using Zend Framework 2",
+	"require": {
+		"php": ">=5.3.3",
+		"zendframework/zendframework": ">=2.2.5"
+	},
+	"authors": [
+		{
+			"name": "Xang Xiong",
+			"email": "xang.xiong.email@gmail.com"
+		}
+	]
+}
