@@ -2,16 +2,19 @@
 namespace Application\Controller\Rest\Users;
 
 use Application\Mvc\Controller\AbstractRestfulController;
-use Application\TableGateway\Shifts;
+use Application\TableGateway\Users;
 
 class ShiftMembersController extends AbstractRestfulController {
 	public function getList() {
-		$shifts_gateway = Shifts::factory($this->getServiceLocator());
+		$users_gateway = Users::factory($this->getServiceLocator());
 		
-		// select all shifts for the given user
-		$result = $shifts_gateway->select(array(
-			'employee_id' => $this->params()->fromRoute('user_id')
-		));
+		$employee_id = $this->params()->fromRoute('user_id');
+		
+		// TODO: working here
+		// select all users who works during the same time period
+		$result = $users_gateway->select(function($select) use($employee_id) {
+			$select->join(array(''));
+		});
 		
 		return $result;
 	}

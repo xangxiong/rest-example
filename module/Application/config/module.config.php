@@ -52,6 +52,7 @@ return array(
         'invokables' => array(
 			'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Rest\Users\Shifts' => 'Application\Controller\Rest\Users\ShiftsController',
+			'Application\Controller\Rest\Users\ShiftMembers' => 'Application\Controller\Rest\Users\ShiftMembersController',
         ),
     ),
 );
