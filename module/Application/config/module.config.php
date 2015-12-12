@@ -5,7 +5,7 @@ return array(
 			'rest-users' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route' => '/rest/users/:user_id/:controller/[:id]',
+					'route' => '/rest/users/:user_id/:controller[/:id]',
 					'constraints' => array(
 						'controller' => '[a-zA-Z][a-zA-Z0-9_\-]*',
 						'user_id' => '[0-9]+',

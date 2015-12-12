@@ -13,7 +13,7 @@ class ShiftsController extends AbstractRestfulController {
 			'employee_id' => $this->params()->fromRoute('user_id')
 		));
 		
-		return $result;
+		return $result->toArray();
 	}
 	
 	public function get($id) {

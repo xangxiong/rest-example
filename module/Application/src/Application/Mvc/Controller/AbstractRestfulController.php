@@ -7,6 +7,7 @@ use Zend\Json\Json;
 use Zend\View\Model\JsonModel;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\Db\ResultSet\AbstractResultSet;
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class AbstractRestfulController extends ZendAbstractRestfulController {	
 	/**
