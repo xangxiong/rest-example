@@ -17,6 +17,21 @@ return array(
 					),
 				),
 			),
+			'rest-managers' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route' => '/rest/managers/:manager_id/:controller[/:id]',
+					'constraints' => array(
+						'controller' => '[a-zA-Z][a-zA-Z0-9_\-]*',
+						'manager_id' => '[0-9]+',
+						'id' => '[0-9]*',
+					),
+					'defaults' => array(
+						'__NAMESPACE__' => 'Application\Controller\Rest\Managers',
+						'action' => false,
+					),
+				),
+			),
         ),
     ),
     'service_manager' => array(
@@ -50,11 +65,12 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-			'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Rest\Users\Shifts' => 'Application\Controller\Rest\Users\ShiftsController',
 			'Application\Controller\Rest\Users\ShiftMembers' => 'Application\Controller\Rest\Users\ShiftMembersController',
 			'Application\Controller\Rest\Users\ShiftManagers' => 'Application\Controller\Rest\Users\ShiftManagersController',
 			'Application\Controller\Rest\Users\WeeklyHours' => 'Application\Controller\Rest\Users\WeeklyHoursController',
+			
+			'Application\Controller\Rest\Managers\Shifts' => 'Application\Controller\Rest\Managers\ShiftsController',
         ),
     ),
 );
