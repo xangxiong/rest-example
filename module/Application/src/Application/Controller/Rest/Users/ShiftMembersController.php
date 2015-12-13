@@ -2,45 +2,53 @@
 namespace Application\Controller\Rest\Users;
 
 use Application\Mvc\Controller\AbstractRestfulController;
-use Application\TableGateway\Shifts;
+use Application\TableGateway\Users;
 
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Expression;
 
+/**
+* Impementation for: As an employee, I want to know who I am working with, by being able to see the employees
+* 					  that are working during the same time period as me.
+* */
 class ShiftMembersController extends AbstractRestfulController {
-	protected function select($id = false) {
-		$shifts_gateway = Shifts::factory($this->getServiceLocator());
+	/**
+	 * Get the list of employees working with the given Employee ID
+	 * 
+	 * @param $id Employee ID
+	 * */
+	public function getList($id = false) {
+		$users_gateway = Users::factory($this->getServiceLocator());
 		
 		$employee_id = $this->params()->fromRoute('user_id');
-		$table = $shifts_gateway->getTable();
+		$table = $users_gateway->getTable();
 		
 		// select all users who works during the same time period
-		$result = $shifts_gateway->select(function($select) use($employee_id, $table) {
-			// the user information for the current shift
-			$select->join(array('U' => 'users'),
-						  "{$table}.employee_id = U.id",
-						  array(
-								'name',
-								'email',
-								'phone'
-						  ),
-						  Select::JOIN_INNER);	
-			// other people's shifts that overlaps with the current shift
+		$result = $users_gateway->select(function($select) use($employee_id, $id, $table) {
+			// the shifts other employees work
 			$select->join(array('S' => 'shifts'),
-						  new Expression("({$table}.start_time >= S.start_time
-											AND {$table}.start_time < S.end_time)
-										OR ({$table}.end_time >= S.start_time
-											AND {$table}.end_time < S.end_time)"),
+						  "{$table}.id = S.employee_id",
 						  array(),
 						  Select::JOIN_INNER);
-					
+			// the shifts the current employee work
+			$select->join(array('S2' => 'shifts'),
+						  new Expression("(S.start_time >= S2.start_time
+											AND S.start_time < S2.end_time)
+										OR (S.end_time >= S2.start_time
+											AND S.end_time < S2.end_time)"),
+						  array(),
+						  Select::JOIN_INNER);
 			
 			$where = new Where();
 			// we do not want to know about our own shifts
-			$where->notEqualTo("{$table}.employee_id", $employee_id);
+			$where->notEqualTo("S.employee_id", $employee_id);
 			// we want to use only our shifts as a comparison
-			$where->equalTo('S.employee_id', $employee_id);
+			$where->equalTo('S2.employee_id', $employee_id);
+			
+			if($id !== false) {
+				$where->equalTo("{$table}.id", $id);
+			}
 			
 			$select->where($where);
 		});
@@ -49,35 +57,17 @@ class ShiftMembersController extends AbstractRestfulController {
 	}
 	
 	/**
-	 * Impementation for: As an employee, I want to know who I am working with, by being able to see the employees
-	 * 					  that are working during the same time period as me.
-	 *
+	 * Get the single employee for the given Employee ID
+	 * 
+	 * @param $id Employee ID
 	 * */
-	public function getList() {
-		return $this->select();
-	}
-	
 	public function get($id) {
-		$result = $this->select($id);
+		$result = $this->getList($id);
 		if($result->count() > 0) {
 			return $result->current();
 		} else {
 			return $this->responseError(404, "invalid id");
 		}
 	}
-	
-	/*
-	public function create($data) {
-		
-	}
-	
-	public function update($id, $data) {
-		
-	}
-	
-	public function delete($id) {
-		
-	}
-	*/
 }
 ?>

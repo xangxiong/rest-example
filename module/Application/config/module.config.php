@@ -53,6 +53,8 @@ return array(
 			'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Rest\Users\Shifts' => 'Application\Controller\Rest\Users\ShiftsController',
 			'Application\Controller\Rest\Users\ShiftMembers' => 'Application\Controller\Rest\Users\ShiftMembersController',
+			'Application\Controller\Rest\Users\ShiftManagers' => 'Application\Controller\Rest\Users\ShiftManagersController',
+			'Application\Controller\Rest\Users\WeeklyHours' => 'Application\Controller\Rest\Users\WeeklyHoursController',
         ),
     ),
 );
