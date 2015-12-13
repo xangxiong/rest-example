@@ -9,7 +9,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
   KEY `role` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1
 
 CREATE TABLE `shifts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -25,5 +25,5 @@ CREATE TABLE `shifts` (
   KEY `employee_id` (`employee_id`),
   CONSTRAINT `shift_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `shift_manager_id` FOREIGN KEY (`manager_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1
 
