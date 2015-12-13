@@ -71,6 +71,7 @@ return array(
 			'Application\Controller\Rest\Users\WeeklyHours' => 'Application\Controller\Rest\Users\WeeklyHoursController',
 			
 			'Application\Controller\Rest\Managers\Shifts' => 'Application\Controller\Rest\Managers\ShiftsController',
+			'Application\Controller\Rest\Managers\Employees' => 'Application\Controller\Rest\Managers\EmployeesController',
         ),
     ),
 );

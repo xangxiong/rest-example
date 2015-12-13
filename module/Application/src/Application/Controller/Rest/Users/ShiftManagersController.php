@@ -9,7 +9,7 @@ use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Expression;
 
 /**
-* Impementation for: As an employee, I want to be able to contact my managers, by seeing manager
+* Implementation for: As an employee, I want to be able to contact my managers, by seeing manager
 * 					 contact information for my shifts.
 * */
 class ShiftManagersController extends AbstractRestfulController {

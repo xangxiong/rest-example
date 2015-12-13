@@ -5,7 +5,7 @@ use Application\Mvc\Controller\AbstractRestfulController;
 use Application\TableGateway\Shifts;
 
 /**
-* Impementation for: As an employee, I want to know when I am working, by being able to see
+* Implementation for: As an employee, I want to know when I am working, by being able to see
 * 					  all of the shifts assigned to me.
 * */
 class ShiftsController extends AbstractRestfulController {

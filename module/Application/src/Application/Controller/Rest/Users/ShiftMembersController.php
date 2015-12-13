@@ -9,7 +9,7 @@ use Zend\Db\Sql\Where;
 use Zend\Db\Sql\Expression;
 
 /**
-* Impementation for: As an employee, I want to know who I am working with, by being able to see the employees
+* Implementation for: As an employee, I want to know who I am working with, by being able to see the employees
 * 					  that are working during the same time period as me.
 * */
 class ShiftMembersController extends AbstractRestfulController {

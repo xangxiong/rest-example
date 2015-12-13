@@ -8,7 +8,7 @@ use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Where;
 
 /**
- * Impementation for: As an employee, I want to know how much I worked, by being
+ * Implementation for: As an employee, I want to know how much I worked, by being
  *					  able to get a summary of hours worked for each week.
  * */
 class WeeklyHoursController extends AbstractRestfulController {
